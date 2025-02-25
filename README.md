@@ -1,0 +1,2 @@
+# CRPURNET
+thyroid nodule segmentation

@@ -1,0 +1,63 @@
+def resu_block(x, filters):
+    shortcut = x
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.Activation('relu')(x)
+    x = tf.keras.layers.Conv2D(filters, (3, 3), padding='same')(x)
+
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.Activation('relu')(x)
+    x = tf.keras.layers.Conv2D(filters, (3, 3), padding='same')(x)
+
+    # Add projection layer to match channel dimensions
+    shortcut = tf.keras.layers.Conv2D(filters, (1, 1), padding='same')(shortcut)  # Adjust shortcut shape
+
+    x = tf.keras.layers.Add()([shortcut, x])  # Residual connection
+    return x
+
+
+def resu_net(input_shape, num_classes):  # Adjust input and output shapes
+    inputs = tf.keras.layers.Input(input_shape)
+
+    # Encoder
+    x = tf.keras.layers.Conv2D(64, (3, 3), padding='same')(inputs)
+    x = resu_block(x, 64)
+    pool1 = tf.keras.layers.MaxPooling2D((2, 2), strides=(2, 2))(x)
+
+    x = resu_block(pool1, 128)
+    pool2 = tf.keras.layers.MaxPooling2D((2, 2), strides=(2, 2))(x)
+
+    x = resu_block(pool2, 256)
+    pool3 = tf.keras.layers.MaxPooling2D((2, 2), strides=(2, 2))(x)
+
+    # Bottleneck
+    x = resu_block(pool3, 512)
+
+    # Decoder
+    up1 = tf.keras.layers.Conv2DTranspose(256, (2, 2), strides=(2, 2), padding='same')(x)
+    pool3_up = tf.keras.layers.Conv2DTranspose(256, (2, 2), strides=(2, 2), padding='same')(pool3)  # Upsample pool3
+
+    up1 = tf.keras.layers.Concatenate()([up1, pool3_up])
+    x = resu_block(up1, 256)
+
+    up2 = tf.keras.layers.Conv2DTranspose(128, (2, 2), strides=(2, 2), padding='same')(x)
+    pool2_up = tf.keras.layers.Conv2DTranspose(128, (2, 2), strides=(2, 2), padding='same')(pool2)  # Upsample pool2
+    up2 = tf.keras.layers.Concatenate()([up2, pool2_up])
+    x = resu_block(up2, 128)
+
+
+
+    up3 = tf.keras.layers.Conv2DTranspose(64, (2, 2), strides=(2, 2), padding='same')(x)
+    pool1_up = tf.keras.layers.Conv2DTranspose(64, (2, 2), strides=(2, 2), padding='same')(pool1)  # Upsample pool1
+    up3 = tf.keras.layers.Concatenate()([up3, pool1_up])
+
+    x = resu_block(up3, 64)
+
+
+    # Output
+    outputs = tf.keras.layers.Conv2D(num_classes, (1, 1), activation='sigmoid')(x)  # Sigmoid for single-channel output
+
+    model = tf.keras.Model(inputs=inputs, outputs=outputs)
+    return model
+
+model = resu_net((256, 256, 1),1)
+model.compile(optimizer='Adam',loss="binary_crossentropy" , metrics=["accuracy", dice_coef,iou, precision, recall])

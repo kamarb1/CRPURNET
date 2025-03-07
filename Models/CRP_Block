@@ -1,0 +1,11 @@
+def CRP_block(x, filters):
+    # Chained residual pooling
+    A = Activation(activation='relu')(x)
+    B = MaxPooling2D(pool_size=(5, 5), strides=1, padding='same')(A)
+    B = conv_block(B, filters)
+    C = MaxPooling2D(pool_size=(5, 5), strides=1, padding='same')(B)
+    C = conv_block(C, filters)
+    D = MaxPooling2D(pool_size=(5, 5), strides=1, padding='same')(C)
+    D = conv_block(D, filters)
+    Z = Concatenate()([x, B, C, D])
+    return Z

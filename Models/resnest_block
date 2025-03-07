@@ -1,0 +1,16 @@
+def resnest_block(inputs, in_channels, out_channels, stride=1, groups=1):
+    conv1 = tf.keras.layers.Conv2D(out_channels, kernel_size=3, strides=stride, padding='same', groups=groups, use_bias=False)(inputs)
+    bn1 = tf.keras.layers.BatchNormalization()(conv1)
+    relu = tf.keras.layers.ReLU()(bn1)
+    conv2 = tf.keras.layers.Conv2D(out_channels, kernel_size=3, strides=1, padding='same', groups=groups, use_bias=False)(relu)
+    bn2 = tf.keras.layers.BatchNormalization()(conv2)
+    
+    if stride != 1 or in_channels != out_channels:
+        shortcut = tf.keras.layers.Conv2D(out_channels, kernel_size=1, strides=stride, use_bias=False)(inputs)
+        shortcut = tf.keras.layers.BatchNormalization()(shortcut)
+    else:
+        shortcut = inputs
+    
+    out = tf.keras.layers.add([bn2, shortcut])
+    out = tf.keras.layers.ReLU()(out)
+    return out

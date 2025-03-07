@@ -1,0 +1,7 @@
+def residual_block(x, n_filters):
+
+    x = Conv2D(n_filters, (3, 3), activation="relu", padding="same")(x)
+    x = Conv2D(n_filters, (3, 3), activation=None, padding="same")(x)
+    x = BatchNormalization()(x)
+    x = Activation("relu")(x)
+    return x

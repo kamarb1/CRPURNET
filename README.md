@@ -1,11 +1,8 @@
 
-
-Title: [Enhanced Chained Residual U-Net for Precise Segmentation of Thyroid Nodules in Ultrasound Images]
-
 # **README: Reproducibility and Documentation**
 # CRPURNET
 
-## **Title:** [Enhanced Chained Residual U-Net for Precise Segmentation of Thyroid Nodules in Ultrasound Images]  
+## **Title:** Enhanced Chained Residual U-Net for Precise Segmentation of Thyroid Nodules in Ultrasound Images
 **Published in:** *The Visual Computer*  
 
 ## **Overview**  
@@ -44,32 +41,29 @@ cd your-repo-folder
 ```
 
 ### **Step 2: Data Preprocessing**  
-Convert raw data into the required format and apply preprocessing steps:  
+Run the preprocessing script before training the model:
 ```bash
-python preprocess.py --input data/raw/ --output data/processed/
+python data_preprocessing.py
 ```
+After running the script, you will have:
+- `X_train.npy`, `y_train.npy`
+- `X_valid.npy`, `y_valid.npy`
+- `X_test.npy`, `y_test.npy`
+These files can then be used for training the segmentation model.
 
 ### **Step 3: Train the Model**  
 Run the training script using the default configuration or specify a config file:  
 ```bash
-python train.py --config config.yaml
+python train.py 
 ```
-To train with custom parameters, modify `config.yaml` or pass arguments:  
-```bash
-python train.py --epochs 100 --batch_size 32 --learning_rate 0.001
-```
+
 
 ### **Step 4: Model Evaluation**  
 After training, evaluate the model on the test dataset:  
 ```bash
-python evaluate.py --model model.pth --test_data data/test/
+python evaluate.py 
 ```
 
-### **Step 5: Inference on New Data**  
-To test the trained model on new images, run:  
-```bash
-python inference.py --model model.pth --input new_image.jpg --output result.jpg
-```
 
 ## **Description of Key Algorithms**  
 1. **Feature Extraction Module:**  

@@ -109,8 +109,8 @@ To ensure reproducibility, we provide:
 ## **Citation**  
 If you use this repository, please cite our paper as follows:  
 ```bibtex
-@article{
-  author = {bouhdiba kamar, meddeber lila, meddeber mohamed, zouagui tarik},
+@article{bouhdiba2025,
+  author = {bouhdiba kamar, meddeber lila, meddeber mohammed, zouagui tarik},
   title = {Enhanced Chained Residual U-Net for Precise Segmentation of Thyroid Nodules in Ultrasound Images},
   journal = {The Visual Computer},
   year = {2025},

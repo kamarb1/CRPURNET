@@ -1,0 +1,32 @@
+import numpy as np
+import matplotlib.pyplot as plt
+plt.style.use("ggplot")
+
+#loss
+plt.figure(figsize=(8, 8))
+plt.title("Learning curve")
+plt.plot(results.history["loss"], label="loss")
+plt.plot(results.history["val_loss"], label="val_loss")
+plt.plot( np.argmin(results.history["val_loss"]), np.min(results.history["val_loss"]), marker="x", color="r", label="best model")
+plt.xlabel("Epochs")
+plt.ylabel("log_loss")
+plt.legend();
+
+#accuracy
+plt.figure(figsize=(8, 8))
+acc = results.history['accuracy']
+val_acc = results.history['val_accuracy']
+epochs = range(len(acc))
+plt.plot(epochs, acc, 'r', label='Training acc')
+plt.plot(epochs, val_acc, 'b', label='Validation acc')
+plt.title('Training and validation accuracy')
+plt.plot( np.argmax(results.history["val_accuracy"]), np.max(results.history["val_accuracy"]), marker="x", color="r", label="best model")
+plt.xlabel("Epochs")
+plt.ylabel("log_acc")
+plt.legend()
+plt.figure()
+
+model.evaluate(X_train, y_train)
+model.evaluate(X_valid, y_valid)
+model.evaluate(X_test, y_test)
+

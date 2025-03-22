@@ -12,7 +12,7 @@ Title: [Enhanced Chained Residual U-Net for Precise Segmentation of Thyroid Nodu
 This repository contains the implementation of our proposed methodology as described in the paper *Enhanced Chained Residual U-Net for Precise Segmentation of Thyroid Nodules in Ultrasound Images*, published in *The Visual Computer*. The code facilitates the replication of our experiments, allowing researchers to evaluate the results presented in the manuscript.
 
 ## **Installation**  
-Ensure you have Python 3.x installed. Then, install the necessary dependencies using:  
+Ensure you have Python 3.10.13 installed. Then, install the necessary dependencies using:  
 ```bash
 pip install -r requirements.txt
 ```
@@ -39,7 +39,7 @@ Ensure all dependencies are installed via `pip install -r requirements.txt` or m
 
 ### **Step 1: Clone the Repository**  
 ```bash
-git clone https://github.com/your-repo-link.git
+git clone https://github.com/kamarb1/CRPURNET.git
 cd your-repo-folder
 ```
 

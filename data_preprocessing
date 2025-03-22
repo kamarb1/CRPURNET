@@ -1,0 +1,44 @@
+im_width = 256
+im_height = 256
+
+
+ids = next(os.walk("Path_trainval-image"))[2] # list of names all images in the given path
+print("No. of images = ", len(ids))
+idds = next(os.walk("Path_test-image"))[2] # list of names all images in the given path
+print("No. of images = ", len(idds))
+
+X = np.zeros((len(ids), im_height, im_width, 1), dtype=np.float32)
+y = np.zeros((len(ids), im_height, im_width, 1), dtype=np.float32)
+
+t = np.zeros((len(idds), im_height, im_width, 1), dtype=np.float32)
+tt = np.zeros((len(idds), im_height, im_width, 1), dtype=np.float32)
+
+for n, id_ in tqdm_notebook(enumerate(ids), total=len(ids)):
+    # Load images
+    img = load_img("Path_trainval-image/"+id_, grayscale=True)
+    x_img = img_to_array(img)
+    x_img = resize(x_img, (im_height, im_width, 1), mode = 'constant', preserve_range = True)
+    # Load masks
+    mask = img_to_array(load_img("Path_trainval-mask/"+id_, grayscale=True))
+    mask = resize(mask, (im_height, im_width, 1), mode = 'constant', preserve_range = True)
+    # Save images
+    X[n] = x_img/255.0
+    y[n] = mask/255.0
+
+
+X_train, X_valid, y_train, y_valid = train_test_split(X, y, test_size=0.1, random_state=42)
+
+
+for n, id_ in tqdm_notebook(enumerate(idds), total=len(idds)):
+    # Load images
+    img = load_img("Path_test-image/"+id_, grayscale=True)
+    x_img = img_to_array(img)
+    x_img = resize(x_img, (im_height, im_width, 1), mode = 'constant', preserve_range = True)
+    t[n] = x_img/255.0
+    # Load masks
+    mask = img_to_array(load_img("Path_test-mask/"+id_, grayscale=True))
+    mask = resize(mask, (im_height, im_width, 1), mode = 'constant', preserve_range = True)
+    # Save images
+    tt[n] = mask/255.0
+X_test = t
+y_test = tt

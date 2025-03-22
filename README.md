@@ -70,25 +70,25 @@ python evaluate.py
 1. **Metrics**  
    To evaluate the performance of the segmentation model, the following metrics were used:
 
-- **Dice Coefficient**:  
-  Measures the overlap between the predicted mask and the ground truth.
+   - **Dice Coefficient**:  
+  Measures the overlap between the predicted mask and the ground truth,
   A higher Dice score (closer to 1) indicates better segmentation.
 
-- **Jaccard Index (IoU)**:  
-  Another overlap metric, also known as Intersection over Union (IoU) 
+   - **Jaccard Index (IoU)**:  
+  Another overlap metric, also known as Intersection over Union (IoU), 
   It is slightly more sensitive to small segmentation errors than the Dice coefficient.
 
-- **Precision**:  
-  Calculates the proportion of correctly predicted positive pixels among all predicted positives
+   - **Precision**:  
+  Calculates the proportion of correctly predicted positive pixels among all predicted positives,
   A higher precision indicates fewer false positives.
 
-- **Recall**:  
-  Measures how many actual positive pixels were correctly identified
+   - **Recall**:  
+  Measures how many actual positive pixels were correctly identified,
   This metric is important when missing a positive region could have critical consequences.
 
-Each metric provides unique insights into the model’s performance, helping to balance false positives and false negatives while ensuring accurate segmentation.
+   Each metric provides unique insights into the model’s performance, helping to balance false positives and false negatives while ensuring accurate segmentation.
 
-2. ** Loss Function:**  
+2. **Loss Function:**  
    - The loss function used is **Binary Cross Entropy (BCE)** for better segmentation performance.   
    - It is commonly used for binary segmentation tasks as it optimizes pixel-wise classification.  
 

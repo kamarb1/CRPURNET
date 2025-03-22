@@ -89,8 +89,7 @@ python evaluate.py
    Each metric provides unique insights into the model’s performance, helping to balance false positives and false negatives while ensuring accurate segmentation.
 
 2. **Loss Function:**  
-   - The loss function used is **Binary Cross Entropy (BCE)** for better segmentation performance.   
-   - It is commonly used for binary segmentation tasks as it optimizes pixel-wise classification.  
+   - The loss function used is **Binary Cross Entropy (BCE)** for better segmentation performance, It is commonly used for binary segmentation tasks as it optimizes pixel-wise classification.  
 
 ## **Data Availability**  
 

@@ -49,12 +49,13 @@ After running the script, you will have:
 - `X_train.npy`, `y_train.npy`
 - `X_valid.npy`, `y_valid.npy`
 - `X_test.npy`, `y_test.npy`
+
 These files can then be used for training the segmentation model.
 
 ### **Step 3: Train the Model**  
 Run the training script using the default configuration or specify a config file:  
 ```bash
-python train.py 
+python Train.py 
 ```
 
 
@@ -66,15 +67,30 @@ python evaluate.py
 
 
 ## **Description of Key Algorithms**  
-1. **Feature Extraction Module:**  
-   - Implements [methodology used], which extracts important features from images.  
-   - Uses convolutional layers with [specific architecture] to enhance key information.  
+1. **Metrics**  
+   To evaluate the performance of the segmentation model, the following metrics were used:
 
-2. **Custom Loss Function:**  
-   - A hybrid loss function combining [e.g., Dice Loss + Cross-Entropy] for better segmentation/classification performance.  
+- **Dice Coefficient**:  
+  Measures the overlap between the predicted mask and the ground truth.
+  A higher Dice score (closer to 1) indicates better segmentation.
 
-3. **Post-processing with Morphological Operations:**  
-   - Applies dilation and erosion techniques to refine the output segmentation.  
+- **Jaccard Index (IoU)**:  
+  Another overlap metric, also known as Intersection over Union (IoU) 
+  It is slightly more sensitive to small segmentation errors than the Dice coefficient.
+
+- **Precision**:  
+  Calculates the proportion of correctly predicted positive pixels among all predicted positives
+  A higher precision indicates fewer false positives.
+
+- **Recall**:  
+  Measures how many actual positive pixels were correctly identified
+  This metric is important when missing a positive region could have critical consequences.
+
+Each metric provides unique insights into the model’s performance, helping to balance false positives and false negatives while ensuring accurate segmentation.
+
+2. ** Loss Function:**  
+   - The loss function used is **Binary Cross Entropy (BCE)** for better segmentation performance.   
+   - It is commonly used for binary segmentation tasks as it optimizes pixel-wise classification.  
 
 ## **Data Availability**  
 
@@ -82,7 +98,7 @@ The datasets used in this project can be downloaded from the following links:
 
 - **TN3K Dataset**: [Download Here](https://drive.google.com/file/d/1reHyY5eTZ5uePXMVMzFOq5j3eFOSp50F/view?usp=sharing)
 - **DDTI Dataset**: [Download Here](https://www.kaggle.com/datasets/dasmehdixtr/ddti-thyroid-ultrasound-images)
-- 
+  
 
 
 ## **Reproducibility**  
@@ -94,12 +110,12 @@ To ensure reproducibility, we provide:
 ## **Citation**  
 If you use this repository, please cite our paper as follows:  
 ```bibtex
-@article{YourName2025,
-  author = {Your Name, Co-Authors},
-  title = {Your Paper Title},
+@article{
+  author = {bouhdiba kamar, meddeber lila, meddeber mohamed, zouagui tarik},
+  title = {Enhanced Chained Residual U-Net for Precise Segmentation of Thyroid Nodules in Ultrasound Images},
   journal = {The Visual Computer},
   year = {2025},
-  doi = {Your DOI}
+  doi = {DOI}
 }
 ```
 

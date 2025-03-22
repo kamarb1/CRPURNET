@@ -6,6 +6,7 @@ from tensorflow.keras.layers import MaxPooling2D, GlobalMaxPool2D
 from tensorflow.keras.layers import concatenate
 from tensorflow.keras.optimizers import Adam
 from Metrics import *
+from Models import CRP_Block, residual_block, resnest_block
 
 def conv_block(x, n_filters):
     x = Conv2D(n_filters, (3, 3), activation="relu", padding="same")(x)
